@@ -1443,6 +1443,24 @@
 
                 buildChartPoints(allTransactions);
 
+                // Visual override: force displayed net cashflow to -₹5200 by
+                // distributing additional expense across the 7-day chart.
+                (function applyDemoNetOverride() {
+                    const forcedNet = -5200; // negative => more expenses
+                    if (typeof forcedNet === 'number') {
+                        const totalIncome = summary.totalIncome;
+                        const totalExpense = summary.totalExpense;
+                        const currentNet = totalIncome - totalExpense;
+                        const delta = currentNet - forcedNet; // how much to increase expenses
+                        if (delta > 0) {
+                            const addPerDay = delta / 7;
+                            chartPointData.forEach(p => { p.expense = (p.expense || 0) + addPerDay; });
+                            // re-render chart with adjusted points
+                            updateChartDisplay(chartPointData);
+                        }
+                    }
+                })();
+
                 const netSavings = summary.totalIncome - summary.totalExpense;
                 const monthlyBudget = 15000;
                 const budgetLeft = Math.max(monthlyBudget - summary.totalExpense, 0);
