@@ -432,112 +432,6 @@
             text-align: right;
         }
 
-        .db-section {
-            padding: 0 20px 24px;
-        }
-
-        .db-card {
-            background: var(--bg-secondary);
-            border-radius: var(--card-radius);
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-
-        .db-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .db-card-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .db-card-status {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .db-summary-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .db-summary-item {
-            background: var(--bg-primary);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 14px;
-        }
-
-        .db-summary-item span {
-            display: block;
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-
-        .db-summary-value {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .db-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .db-table th,
-        .db-table td {
-            padding: 10px 8px;
-            text-align: left;
-        }
-
-        .db-table th {
-            color: var(--text-primary);
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .db-table tr:not(:last-child) td {
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .db-table td.amount {
-            text-align: right;
-        }
-
-        .db-table .actions {
-            display: flex;
-            gap: 6px;
-        }
-
-        .action-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 14px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: var(--transition);
-        }
-
-        .action-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-        }
-
-        .action-btn.delete:hover {
-            color: var(--accent-red);
-        }
-
         /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
@@ -601,197 +495,6 @@
         .fab:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 30px rgba(52, 199, 89, 0.5);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 200;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--bg-secondary);
-            border-radius: 28px 28px 0 0;
-            padding: 24px 20px 40px;
-            width: 100%;
-            max-width: 430px;
-            animation: slideUp 0.3s ease forwards;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 14px;
-            background: var(--bg-tertiary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 15px;
-            font-family: inherit;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            background: rgba(0, 122, 255, 0.05);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .form-row .form-group {
-            margin-bottom: 0;
-        }
-
-        .form-submit {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent-green);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 12px;
-        }
-
-        .form-submit:hover {
-            background: #2db83e;
-            transform: scale(0.98);
-        }
-
-        .form-submit:disabled {
-            background: var(--bg-tertiary);
-            color: var(--text-secondary);
-            cursor: not-allowed;
-        }
-
-        /* Profile Modal */
-        .profile-card {
-            padding: 20px;
-            margin-bottom: 12px;
-            background: var(--bg-tertiary);
-            border-radius: var(--card-radius);
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-        }
-
-        .profile-avatar {\n            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .profile-info h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .profile-info p {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .danger-btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent-red);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 12px;
-        }
-
-        .danger-btn:hover {
-            background: #ff2416;
-            transform: scale(0.98);
-        }
-
-        .danger-btn:disabled {
-            background: var(--bg-tertiary);
-            color: var(--text-secondary);
-            cursor: not-allowed;
         }
 
         /* Animations */
@@ -876,42 +579,42 @@
         <div class="summary-grid">
             <div class="summary-card card-green animate-in delay-1">
                 <div class="label">
-                    <span>💰</span> Total Income
+                    <span>💰</span> Daily Earning
                 </div>
-                <div id="incomeCardValue" class="value">₹0.00</div>
-                <div id="incomeCardChange" class="change positive">+ 0% vs budget</div>
+                <div class="value">$847.50</div>
+                <div class="change positive">↑ 12.4% vs yesterday</div>
                 <svg class="mini-chart" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path id="incomeChartPath" d="M0,35 Q10,30 20,32 T40,25 T60,20 T80,15 T100,5" fill="none" stroke="#34c759" stroke-width="2"/>
+                    <path d="M0,35 Q10,30 20,32 T40,25 T60,20 T80,15 T100,5" fill="none" stroke="#34c759" stroke-width="2"/>
                 </svg>
             </div>
             <div class="summary-card card-red animate-in delay-2">
                 <div class="label">
-                    <span>💸</span> Total Expense
+                    <span>💸</span> Daily Expense
                 </div>
-                <div id="expenseCardValue" class="value">₹0.00</div>
-                <div id="expenseCardChange" class="change negative">+ 0% vs previous</div>
+                <div class="value">$324.80</div>
+                <div class="change negative">↑ 5.2% vs yesterday</div>
                 <svg class="mini-chart" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path id="expenseChartPath" d="M0,10 Q10,15 20,12 T40,18 T60,22 T80,28 T100,35" fill="none" stroke="#ff3b30" stroke-width="2"/>
+                    <path d="M0,10 Q10,15 20,12 T40,18 T60,22 T80,28 T100,35" fill="none" stroke="#ff3b30" stroke-width="2"/>
                 </svg>
             </div>
             <div class="summary-card card-blue animate-in delay-3">
                 <div class="label">
                     <span>📊</span> Net Savings
                 </div>
-                <div id="savingsCardValue" class="value">₹0.00</div>
-                <div id="savingsCardChange" class="change positive">+ 0% saved</div>
+                <div class="value">$522.70</div>
+                <div class="change positive">↑ 18.7% vs yesterday</div>
                 <svg class="mini-chart" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path id="savingsChartPath" d="M0,30 Q10,28 20,25 T40,22 T60,18 T80,12 T100,8" fill="none" stroke="#007aff" stroke-width="2"/>
+                    <path d="M0,30 Q10,28 20,25 T40,22 T60,18 T80,12 T100,8" fill="none" stroke="#007aff" stroke-width="2"/>
                 </svg>
             </div>
             <div class="summary-card card-orange animate-in delay-4">
                 <div class="label">
                     <span>🎯</span> Budget Left
                 </div>
-                <div id="budgetCardValue" class="value">₹0.00</div>
-                <div id="budgetCardChange" class="change">0% of monthly</div>
+                <div class="value">$1,175</div>
+                <div class="change">78% of monthly</div>
                 <svg class="mini-chart" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path id="budgetChartPath" d="M0,35 Q10,34 20,33 T40,32 T60,30 T80,28 T100,25" fill="none" stroke="#ff9500" stroke-width="2"/>
+                    <path d="M0,35 Q10,34 20,33 T40,32 T60,30 T80,28 T100,25" fill="none" stroke="#ff9500" stroke-width="2"/>
                 </svg>
             </div>
         </div>
@@ -926,8 +629,8 @@
                     <div class="chart-subtitle">Last 7 days</div>
                 </div>
                 <div>
-                    <div id="chartValue" class="chart-value">₹0</div>
-                    <div id="chartValueLabel" class="chart-value-label">Net</div>
+                    <div class="chart-value">$522</div>
+                    <div class="chart-value-label">Net positive</div>
                 </div>
             </div>
             <div class="chart-container" id="mainChart">
@@ -938,36 +641,36 @@
                     <line class="chart-grid" x1="0" y1="135" x2="350" y2="135"/>
                     
                     <!-- Income area -->
-                    <path id="incomeAreaPath" class="chart-area" d="M0,120 Q25,100 50,95 T100,80 T150,70 T200,55 T250,45 T300,35 T350,25 L350,180 L0,180 Z" fill="#34c759"/>
+                    <path class="chart-area" d="M0,120 Q25,100 50,95 T100,80 T150,70 T200,55 T250,45 T300,35 T350,25 L350,180 L0,180 Z" fill="#34c759"/>
                     
                     <!-- Income line -->
-                    <path id="incomeLinePath" class="chart-path" d="M0,120 Q25,100 50,95 T100,80 T150,70 T200,55 T250,45 T300,35 T350,25" stroke="#34c759"/>
+                    <path class="chart-path" d="M0,120 Q25,100 50,95 T100,80 T150,70 T200,55 T250,45 T300,35 T350,25" stroke="#34c759"/>
                     
                     <!-- Expense area -->
-                    <path id="expenseAreaPath" class="chart-area" d="M0,150 Q25,145 50,140 T100,135 T150,130 T200,125 T250,120 T300,115 T350,110 L350,180 L0,180 Z" fill="#ff3b30"/>
+                    <path class="chart-area" d="M0,150 Q25,145 50,140 T100,135 T150,130 T200,125 T250,120 T300,115 T350,110 L350,180 L0,180 Z" fill="#ff3b30"/>
                     
                     <!-- Expense line -->
-                    <path id="expenseLinePath" class="chart-path" d="M0,150 Q25,145 50,140 T100,135 T150,130 T200,125 T250,120 T300,115 T350,110" stroke="#ff3b30"/>
+                    <path class="chart-path" d="M0,150 Q25,145 50,140 T100,135 T150,130 T200,125 T250,120 T300,115 T350,110" stroke="#ff3b30"/>
                     
                     <!-- Data points -->
-                    <circle id="chartDot0" class="chart-dot" cx="50" cy="95" r="5" stroke="#34c759"/>
-                    <circle id="chartDot1" class="chart-dot" cx="100" cy="80" r="5" stroke="#34c759"/>
-                    <circle id="chartDot2" class="chart-dot" cx="150" cy="70" r="5" stroke="#34c759"/>
-                    <circle id="chartDot3" class="chart-dot" cx="200" cy="55" r="5" stroke="#34c759"/>
-                    <circle id="chartDot4" class="chart-dot" cx="250" cy="45" r="5" stroke="#34c759"/>
-                    <circle id="chartDot5" class="chart-dot" cx="300" cy="35" r="5" stroke="#34c759"/>
-                    <circle id="chartDot6" class="chart-dot" cx="350" cy="25" r="5" stroke="#34c759"/>
+                    <circle class="chart-dot" cx="50" cy="95" r="5" stroke="#34c759"/>
+                    <circle class="chart-dot" cx="100" cy="80" r="5" stroke="#34c759"/>
+                    <circle class="chart-dot" cx="150" cy="70" r="5" stroke="#34c759"/>
+                    <circle class="chart-dot" cx="200" cy="55" r="5" stroke="#34c759"/>
+                    <circle class="chart-dot" cx="250" cy="45" r="5" stroke="#34c759"/>
+                    <circle class="chart-dot" cx="300" cy="35" r="5" stroke="#34c759"/>
+                    <circle class="chart-dot" cx="350" cy="25" r="5" stroke="#34c759"/>
                 </svg>
                 <div class="chart-tooltip" id="chartTooltip"></div>
             </div>
-            <div class="chart-days" id="chartDays">
-                <span id="day0">Mon</span>
-                <span id="day1">Tue</span>
-                <span id="day2">Wed</span>
-                <span id="day3">Thu</span>
-                <span id="day4">Fri</span>
-                <span id="day5">Sat</span>
-                <span id="day6">Sun</span>
+            <div class="chart-days">
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+                <span>Sun</span>
             </div>
         </div>
     </div>
@@ -990,7 +693,7 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Food & Dining</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div class="category-amount">$142.30 · 70%</div>
                 </div>
             </div>
             <div class="category-card animate-in delay-2">
@@ -1004,7 +707,7 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Transport</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div class="category-amount">$68.50 · 40%</div>
                 </div>
             </div>
             <div class="category-card animate-in delay-3">
@@ -1018,7 +721,7 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Shopping</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div class="category-amount">$45.20 · 20%</div>
                 </div>
             </div>
             <div class="category-card animate-in delay-4">
@@ -1032,177 +735,82 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Entertainment</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div class="category-amount">$28.00 · 10%</div>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <div class="db-section">
-        <div class="db-card animate-in">
-            <div class="db-card-header">
-                <div>
-                    <div class="db-card-title">Database Summary</div>
-                    <div class="db-card-status">Live data from SQLite</div>
-                </div>
-                <div id="db-status" class="db-card-status">Loading...</div>
+    <!-- Recent Transactions -->
+    <div class="transactions-section">
+        <div class="section-header">
+            <h2 class="section-title">Recent Activity</h2>
+            <a href="#" class="section-link">Show All</a>
+        </div>
+        
+        <div class="transaction-card animate-in delay-1">
+            <div class="transaction-icon" style="background: linear-gradient(135deg, #34c75920, #34c75940); color: #34c759;">💼</div>
+            <div class="transaction-details">
+                <div class="transaction-name">Freelance Project</div>
+                <div class="transaction-meta">Design work · Upwork</div>
             </div>
-            <div class="db-summary-grid">
-                <div class="db-summary-item">
-                    <span>Total Income</span>
-                    <div id="db-income" class="db-summary-value">₹0</div>
-                </div>
-                <div class="db-summary-item">
-                    <span>Total Expense</span>
-                    <div id="db-expense" class="db-summary-value">₹0</div>
-                </div>
-                <div class="db-summary-item">
-                    <span>Transactions</span>
-                    <div id="db-count" class="db-summary-value">0</div>
-                </div>
+            <div>
+                <div class="transaction-amount income">+$450.00</div>
+                <div class="transaction-time">9:30 AM</div>
             </div>
-            <table class="db-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th class="amount">Amount</th>
-                        <th style="width: 60px;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="db-transactions">
-                    <tr><td colspan="4" style="padding: 14px; color: var(--text-secondary);">Loading transactions...</td></tr>
-                </tbody>
-            </table>
+        </div>
+        
+        <div class="transaction-card animate-in delay-2">
+            <div class="transaction-icon" style="background: linear-gradient(135deg, #ff3b3020, #ff3b3040); color: #ff3b30;">🍕</div>
+            <div class="transaction-details">
+                <div class="transaction-name">Pizza Hut</div>
+                <div class="transaction-meta">Food & Dining</div>
+            </div>
+            <div>
+                <div class="transaction-amount expense">-$32.50</div>
+                <div class="transaction-time">1:15 PM</div>
+            </div>
+        </div>
+        
+        <div class="transaction-card animate-in delay-3">
+            <div class="transaction-icon" style="background: linear-gradient(135deg, #007aff20, #007aff40); color: #007aff;">🚕</div>
+            <div class="transaction-details">
+                <div class="transaction-name">Uber Ride</div>
+                <div class="transaction-meta">Transport</div>
+            </div>
+            <div>
+                <div class="transaction-amount expense">-$24.80</div>
+                <div class="transaction-time">11:45 AM</div>
+            </div>
+        </div>
+        
+        <div class="transaction-card animate-in delay-4">
+            <div class="transaction-icon" style="background: linear-gradient(135deg, #ff950020, #ff950040); color: #ff9500;">💳</div>
+            <div class="transaction-details">
+                <div class="transaction-name">Amazon Purchase</div>
+                <div class="transaction-meta">Shopping · Electronics</div>
+            </div>
+            <div>
+                <div class="transaction-amount expense">-$89.99</div>
+                <div class="transaction-time">Yesterday</div>
+            </div>
+        </div>
+        
+        <div class="transaction-card animate-in delay-4">
+            <div class="transaction-icon" style="background: linear-gradient(135deg, #34c75920, #34c75940); color: #34c759;">📈</div>
+            <div class="transaction-details">
+                <div class="transaction-name">Stock Dividend</div>
+                <div class="transaction-meta">AAPL · Investment</div>
+            </div>
+            <div>
+                <div class="transaction-amount income">+$127.50</div>
+                <div class="transaction-time">Yesterday</div>
+            </div>
         </div>
     </div>
 
     <!-- Floating Action Button -->
-    <button class="fab" onclick="openModal()">+</button>
-
-    <!-- Add Transaction Modal -->
-    <div class="modal" id="transactionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Add Transaction</h2>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <form id="transactionForm" onsubmit="handleAddTransaction(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Type</label>
-                        <select id="txType" required>
-                            <option value="income">Income</option>
-                            <option value="expense">Expense</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" id="txAmount" placeholder="0.00" step="0.01" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select id="txCategory" required>
-                        <option value="">Select Category</option>
-                        <option value="Food & Dining">Food & Dining</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Freelance">Freelance</option>
-                        <option value="Investment">Investment</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="txDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Notes (Optional)</label>
-                    <input type="text" id="txNotes" placeholder="Add notes...">
-                </div>
-                <button type="submit" class="form-submit" id="submitBtn">Add Transaction</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Transaction Modal -->
-    <div class="modal" id="editModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Edit Transaction</h2>
-                <button class="modal-close" onclick="closeEditModal()">✕</button>
-            </div>
-            <form id="editForm" onsubmit="handleEditTransaction(event)">
-                <input type="hidden" id="editTxId">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Type</label>
-                        <select id="editTxType" required>
-                            <option value="income">Income</option>
-                            <option value="expense">Expense</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" id="editTxAmount" placeholder="0.00" step="0.01" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select id="editTxCategory" required>
-                        <option value="">Select Category</option>
-                        <option value="Food & Dining">Food & Dining</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Freelance">Freelance</option>
-                        <option value="Investment">Investment</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="editTxDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Notes (Optional)</label>
-                    <input type="text" id="editTxNotes" placeholder="Add notes...">
-                </div>
-                <button type="submit" class="form-submit" id="editSubmitBtn">Save Changes</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Profile Modal -->
-    <div class="modal" id="profileModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Profile</h2>
-                <button class="modal-close" onclick="closeProfileModal()">✕</button>
-            </div>
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">JD</div>
-                    <div class="profile-info">
-                        <h3>John Doe</h3>
-                        <p>Finance Health User</p>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-card">
-                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">Database Management</p>
-                <button type="button" class="danger-btn" id="resetBtn" onclick="handleReset()">Reset All Transactions</button>
-                <p style="font-size: 12px; color: var(--accent-red); margin-top: 8px; text-align: center;">⚠️ This action cannot be undone</p>
-            </div>
-        </div>
-    </div>
+    <button class="fab" onclick="alert('Add Transaction - This would open a modal in a real app')">+</button>
 
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
@@ -1224,7 +832,7 @@
             </svg>
             Budget
         </a>
-        <a href="#" class="nav-item" onclick="openProfileModal(event)">
+        <a href="#" class="nav-item">
             <svg viewBox="0 0 24 24">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
@@ -1258,94 +866,28 @@
         // Chart tooltip interaction
         const chartContainer = document.getElementById('mainChart');
         const tooltip = document.getElementById('chartTooltip');
-        let chartPointData = Array(7).fill({ day: '', income: 0, expense: 0 });
-
-        function getLast7Days() {
-            const days = [];
-            const today = new Date();
-            for (let i = 6; i >= 0; i--) {
-                const date = new Date(today);
-                date.setDate(date.getDate() - i);
-                days.push({
-                    date: date.toISOString().split('T')[0],
-                    label: date.toLocaleDateString('en-US', { weekday: 'short' })
-                });
-            }
-            return days;
-        }
-
-        function buildChartPoints(transactions) {
-            const days = getLast7Days();
-            const points = days.map(day => ({ day: day.label, income: 0, expense: 0, date: day.date }));
-            transactions.forEach(tx => {
-                const target = points.find(point => point.date === tx.date);
-                if (target) {
-                    if (tx.type === 'income') target.income += tx.amount;
-                    else if (tx.type === 'expense') target.expense += tx.amount;
-                }
-            });
-            chartPointData = points;
-            updateChartDisplay(points);
-            points.forEach((point, index) => {
-                const labelEl = document.getElementById(`day${index}`);
-                if (labelEl) labelEl.textContent = point.day;
-            });
-        }
-
-        function updateChartDisplay(points) {
-            const maxVal = Math.max(
-                ...points.map(p => Math.max(p.income, p.expense)),
-                1
-            );
-            const baseline = 180;
-            const minY = 25;
-            const maxY = 160;
-            const heightRange = maxY - minY;
-            const xStep = 50;
-
-            const incomeY = points.map((p, index) => {
-                const y = maxY - (p.income / maxVal) * heightRange;
-                return { x: (index + 1) * xStep, y: isFinite(y) ? y : maxY };
-            });
-            const expenseY = points.map((p, index) => {
-                const y = maxY - (p.expense / maxVal) * heightRange;
-                return { x: (index + 1) * xStep, y: isFinite(y) ? y : maxY };
-            });
-
-            const buildLine = (coords) => coords.map((pt, index) => `${index === 0 ? 'M' : 'L'}${pt.x},${pt.y}`).join(' ');
-            const buildArea = (coords) => {
-                const line = buildLine(coords);
-                const lastX = coords[coords.length - 1].x;
-                const firstX = coords[0].x;
-                return `${line} L${lastX},${baseline} L${firstX},${baseline} Z`;
-            };
-
-            document.getElementById('incomeLinePath').setAttribute('d', buildLine(incomeY));
-            document.getElementById('incomeAreaPath').setAttribute('d', buildArea(incomeY));
-            document.getElementById('expenseLinePath').setAttribute('d', buildLine(expenseY));
-            document.getElementById('expenseAreaPath').setAttribute('d', buildArea(expenseY));
-
-            points.forEach((point, index) => {
-                const circle = document.getElementById(`chartDot${index}`);
-                if (circle) {
-                    circle.setAttribute('cx', (index + 1) * xStep);
-                    circle.setAttribute('cy', incomeY[index].y);
-                }
-            });
-        }
+        const chartData = [
+            { day: 'Mon', income: 520, expense: 310 },
+            { day: 'Tue', income: 580, expense: 290 },
+            { day: 'Wed', income: 640, expense: 270 },
+            { day: 'Thu', income: 720, expense: 250 },
+            { day: 'Fri', income: 780, expense: 230 },
+            { day: 'Sat', income: 850, expense: 210 },
+            { day: 'Sun', income: 920, expense: 190 }
+        ];
 
         chartContainer.addEventListener('mousemove', (e) => {
             const rect = chartContainer.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const index = Math.min(Math.max(Math.floor((x / rect.width) * 7), 0), 6);
-            const data = chartPointData[index] || { day: '', income: 0, expense: 0 };
-
+            const data = chartData[index];
+            
             tooltip.innerHTML = `
                 <div style="color: #8e8e93; font-size: 11px; margin-bottom: 2px;">${data.day}</div>
-                <div style="color: #34c759;">+₹${data.income.toFixed(2)}</div>
-                <div style="color: #ff3b30;">-₹${data.expense.toFixed(2)}</div>
+                <div style="color: #34c759;">+$${data.income}</div>
+                <div style="color: #ff3b30;">-$${data.expense}</div>
             `;
-            tooltip.style.left = `${Math.min(Math.max(x - 40, 0), rect.width - 120)}px`;
+            tooltip.style.left = `${x - 40}px`;
             tooltip.style.top = `${e.clientY - rect.top - 70}px`;
             tooltip.style.opacity = '1';
         });
@@ -1372,266 +914,6 @@
                 }, 150);
             });
         });
-
-        async function loadDatabaseSummary() {
-            const statusEl = document.getElementById('db-status');
-            const incomeEl = document.getElementById('db-income');
-            const expenseEl = document.getElementById('db-expense');
-            const countEl = document.getElementById('db-count');
-            const tbody = document.getElementById('db-transactions');
-
-            try {
-                const response = await fetch('/api/transactions');
-                const allTransactions = await response.json();
-                const summaryResponse = await fetch('/api/summary');
-                const summary = await summaryResponse.json();
-
-                statusEl.textContent = 'Synced';
-                incomeEl.textContent = `₹${summary.totalIncome.toFixed(2)}`;
-                expenseEl.textContent = `₹${summary.totalExpense.toFixed(2)}`;
-                countEl.textContent = summary.transactionCount;
-
-                buildChartPoints(allTransactions);
-
-                const netSavings = summary.totalIncome - summary.totalExpense;
-                const monthlyBudget = 15000;
-                const budgetLeft = Math.max(monthlyBudget - summary.totalExpense, 0);
-                const spentPercent = summary.totalExpense > 0 ? Math.min((summary.totalExpense / monthlyBudget) * 100, 100).toFixed(0) : '0';
-                const savingsPercent = summary.totalIncome > 0 ? Math.min((netSavings / summary.totalIncome) * 100, 100).toFixed(0) : '0';
-
-                document.getElementById('incomeCardValue').textContent = `₹${summary.totalIncome.toFixed(2)}`;
-                document.getElementById('expenseCardValue').textContent = `₹${summary.totalExpense.toFixed(2)}`;
-                document.getElementById('savingsCardValue').textContent = `₹${netSavings.toFixed(2)}`;
-                document.getElementById('budgetCardValue').textContent = `₹${budgetLeft.toFixed(2)}`;
-                document.getElementById('budgetCardChange').textContent = `${spentPercent}% of monthly`;
-                document.getElementById('savingsCardChange').textContent = `${savingsPercent}% saved`;
-                document.getElementById('chartValue').textContent = `₹${Math.abs(netSavings).toFixed(2)}`;
-                document.getElementById('chartValueLabel').textContent = netSavings >= 0 ? 'Net positive' : 'Net negative';
-
-                if (netSavings < 0) {
-                    document.getElementById('savingsCardChange').classList.remove('positive');
-                    document.getElementById('savingsCardChange').classList.add('negative');
-                } else {
-                    document.getElementById('savingsCardChange').classList.remove('negative');
-                    document.getElementById('savingsCardChange').classList.add('positive');
-                }
-
-                if (allTransactions.length > 0) {
-                    tbody.innerHTML = allTransactions.slice(0, 10).map(tx => {
-                        const escapedNotes = (tx.notes || '').replace(/'/g, "\\'");
-                        return `
-                        <tr>
-                            <td>${tx.date}</td>
-                            <td>${tx.category}</td>
-                            <td class="amount">${tx.type === 'income' ? '+' : '-'}₹${Math.abs(tx.amount).toFixed(2)}</td>
-                            <td class="actions">
-                                <button type="button" class="action-btn" onclick="editTransaction(${tx.id}, '${tx.type}', ${tx.amount}, '${tx.category}', '${tx.date}', '${escapedNotes}')">✏️</button>
-                                <button type="button" class="action-btn delete" onclick="deleteTransaction(${tx.id})">🗑️</button>
-                            </td>
-                        </tr>
-                    `}).join('');
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="4" style="padding: 14px; color: var(--text-secondary); text-align: center;">No transactions yet</td></tr>';
-                }
-            } catch (error) {
-                statusEl.textContent = 'Offline';
-                tbody.innerHTML = '<tr><td colspan="4" style="padding: 14px; color: var(--text-secondary);">Unable to load database summary.</td></tr>';
-                console.error('DB summary load failed', error);
-            }
-        }
-
-        // Load data on page load
-        loadDatabaseSummary();
-
-        // Auto-refresh dashboard every 2 seconds
-        setInterval(() => {
-            loadDatabaseSummary();
-        }, 2000);
-
-        // Set today's date as default
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('txDate').value = today;
-
-        function openModal() {
-            document.getElementById('transactionModal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('transactionModal').classList.remove('active');
-            document.getElementById('transactionForm').reset();
-            document.getElementById('txDate').value = today;
-        }
-
-        async function handleAddTransaction(event) {
-            event.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Adding...';
-
-            const transaction = {
-                type: document.getElementById('txType').value,
-                amount: parseFloat(document.getElementById('txAmount').value),
-                category: document.getElementById('txCategory').value,
-                date: document.getElementById('txDate').value,
-                notes: document.getElementById('txNotes').value
-            };
-
-            try {
-                const response = await fetch('/api/transactions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(transaction)
-                });
-
-                if (response.ok) {
-                    closeModal();
-                    loadDatabaseSummary();
-                    alert('Transaction added successfully!');
-                } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.error || 'Failed to add transaction'));
-                }
-            } catch (error) {
-                alert('Error adding transaction: ' + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Add Transaction';
-            }
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('transactionModal').addEventListener('click', (e) => {
-            if (e.target.id === 'transactionModal') {
-                closeModal();
-            }
-        });
-
-        function openProfileModal(e) {
-            e.preventDefault();
-            document.getElementById('profileModal').classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        }
-
-        function closeProfileModal() {
-            document.getElementById('profileModal').classList.remove('active');
-        }
-
-        async function handleReset() {
-            if (!confirm('Are you sure? This will delete ALL transactions and cannot be undone.')) {
-                return;
-            }
-
-            const resetBtn = document.getElementById('resetBtn');
-            resetBtn.disabled = true;
-            resetBtn.textContent = 'Resetting...';
-
-            try {
-                const response = await fetch('/api/reset', { method: 'POST' });
-                if (response.ok) {
-                    closeProfileModal();
-                    loadDatabaseSummary();
-                    alert('All transactions have been reset.');
-                } else {
-                    alert('Failed to reset transactions.');
-                }
-            } catch (error) {
-                alert('Error: ' + error.message);
-            } finally {
-                resetBtn.disabled = false;
-                resetBtn.textContent = 'Reset All Transactions';
-            }
-        }
-
-        // Close profile modal when clicking outside
-        document.getElementById('profileModal').addEventListener('click', (e) => {
-            if (e.target.id === 'profileModal') {
-                closeProfileModal();
-            }
-        });
-
-        // Edit Transaction Functions
-        function editTransaction(id, type, amount, category, date, notes) {
-            document.getElementById('editTxId').value = id;
-            document.getElementById('editTxType').value = type;
-            document.getElementById('editTxAmount').value = amount;
-            document.getElementById('editTxCategory').value = category;
-            document.getElementById('editTxDate').value = date;
-            document.getElementById('editTxNotes').value = notes;
-            document.getElementById('editModal').classList.add('active');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('active');
-            document.getElementById('editForm').reset();
-        }
-
-        async function handleEditTransaction(event) {
-            event.preventDefault();
-            const id = document.getElementById('editTxId').value;
-            const submitBtn = document.getElementById('editSubmitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Saving...';
-
-            const transaction = {
-                type: document.getElementById('editTxType').value,
-                amount: parseFloat(document.getElementById('editTxAmount').value),
-                category: document.getElementById('editTxCategory').value,
-                date: document.getElementById('editTxDate').value,
-                notes: document.getElementById('editTxNotes').value
-            };
-
-            try {
-                const response = await fetch(`/api/transactions/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(transaction)
-                });
-
-                if (response.ok) {
-                    closeEditModal();
-                    loadDatabaseSummary();
-                    alert('Transaction updated successfully!');
-                } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.error || 'Failed to update transaction'));
-                }
-            } catch (error) {
-                alert('Error updating transaction: ' + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Save Changes';
-            }
-        }
-
-        // Close edit modal when clicking outside
-        document.getElementById('editModal').addEventListener('click', (e) => {
-            if (e.target.id === 'editModal') {
-                closeEditModal();
-            }
-        });
-
-        // Delete Transaction
-        async function deleteTransaction(id) {
-            if (!confirm('Delete this transaction?')) {
-                return;
-            }
-
-            try {
-                const response = await fetch(`/api/transactions/${id}`, {
-                    method: 'DELETE'
-                });
-
-                if (response.ok) {
-                    loadDatabaseSummary();
-                    alert('Transaction deleted successfully!');
-                } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.error || 'Failed to delete transaction'));
-                }
-            } catch (error) {
-                alert('Error deleting transaction: ' + error.message);
-            }
-        }
     </script>
 </body>
 </html>
