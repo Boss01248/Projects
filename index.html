@@ -1303,13 +1303,14 @@
             const heightRange = maxY - minY;
             const xStep = 50;
 
+            // Invert mapping: larger values should draw lower (towards bottom)
             const incomeY = points.map((p, index) => {
-                const y = maxY - (p.income / maxVal) * heightRange;
-                return { x: (index + 1) * xStep, y: isFinite(y) ? y : maxY };
+                const y = minY + (p.income / maxVal) * heightRange;
+                return { x: (index + 1) * xStep, y: isFinite(y) ? y : minY };
             });
             const expenseY = points.map((p, index) => {
-                const y = maxY - (p.expense / maxVal) * heightRange;
-                return { x: (index + 1) * xStep, y: isFinite(y) ? y : maxY };
+                const y = minY + (p.expense / maxVal) * heightRange;
+                return { x: (index + 1) * xStep, y: isFinite(y) ? y : minY };
             });
 
             const buildLine = (coords) => coords.map((pt, index) => `${index === 0 ? 'M' : 'L'}${pt.x},${pt.y}`).join(' ');
