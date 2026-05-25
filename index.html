@@ -253,6 +253,14 @@
             stroke-width: 3;
         }
 
+        .income-dot {
+            stroke: #34c759;
+        }
+
+        .expense-dot {
+            stroke: #ff3b30;
+        }
+
         .chart-tooltip {
             position: absolute;
             background: var(--bg-tertiary);
@@ -932,31 +940,51 @@
             </div>
             <div class="chart-container" id="mainChart">
                 <svg class="chart-svg" viewBox="0 0 350 180">
+                    <!-- Y axis line and ticks (labels updated by JS) -->
+                    <line id="yAxisLine" x1="30" y1="25" x2="30" y2="160" stroke="#8e8e93" stroke-width="1" />
+                    <text id="yAxisLabel" x="8" y="90" transform="rotate(-90 8,90)" fill="#8e8e93" font-size="12">Value (₹)</text>
+                    <text id="yTick3" x="34" y="30" fill="#8e8e93" font-size="11">₹0</text>
+                    <text id="yTick2" x="34" y="70" fill="#8e8e93" font-size="11">₹0</text>
+                    <text id="yTick1" x="34" y="110" fill="#8e8e93" font-size="11">₹0</text>
+                    <text id="yTick0" x="34" y="150" fill="#8e8e93" font-size="11">₹0</text>
+
                     <!-- Grid lines -->
-                    <line class="chart-grid" x1="0" y1="45" x2="350" y2="45"/>
-                    <line class="chart-grid" x1="0" y1="90" x2="350" y2="90"/>
-                    <line class="chart-grid" x1="0" y1="135" x2="350" y2="135"/>
-                    
+                    <line class="chart-grid" x1="40" y1="45" x2="350" y2="45"/>
+                    <line class="chart-grid" x1="40" y1="90" x2="350" y2="90"/>
+                    <line class="chart-grid" x1="40" y1="135" x2="350" y2="135"/>
+
                     <!-- Income area -->
-                    <path id="incomeAreaPath" class="chart-area" d="M0,120 Q25,100 50,95 T100,80 T150,70 T200,55 T250,45 T300,35 T350,25 L350,180 L0,180 Z" fill="#34c759"/>
-                    
+                    <path id="incomeAreaPath" class="chart-area" d="M40,120 Q65,100 90,95 T140,80 T190,70 T240,55 T290,45 T340,35 T390,25 L390,180 L40,180 Z" fill="#34c759"/>
+
                     <!-- Income line -->
-                    <path id="incomeLinePath" class="chart-path" d="M0,120 Q25,100 50,95 T100,80 T150,70 T200,55 T250,45 T300,35 T350,25" stroke="#34c759"/>
-                    
+                    <path id="incomeLinePath" class="chart-path" d="M40,120 Q65,100 90,95 T140,80 T190,70 T240,55 T290,45 T340,35 T390,25" stroke="#34c759"/>
+
                     <!-- Expense area -->
-                    <path id="expenseAreaPath" class="chart-area" d="M0,150 Q25,145 50,140 T100,135 T150,130 T200,125 T250,120 T300,115 T350,110 L350,180 L0,180 Z" fill="#ff3b30"/>
-                    
+                    <path id="expenseAreaPath" class="chart-area" d="M40,150 Q65,145 90,140 T140,135 T190,130 T240,125 T290,120 T340,115 T390,110 L390,180 L40,180 Z" fill="#ff3b30"/>
+
                     <!-- Expense line -->
-                    <path id="expenseLinePath" class="chart-path" d="M0,150 Q25,145 50,140 T100,135 T150,130 T200,125 T250,120 T300,115 T350,110" stroke="#ff3b30"/>
-                    
-                    <!-- Data points -->
-                    <circle id="chartDot0" class="chart-dot" cx="50" cy="95" r="5" stroke="#34c759"/>
-                    <circle id="chartDot1" class="chart-dot" cx="100" cy="80" r="5" stroke="#34c759"/>
-                    <circle id="chartDot2" class="chart-dot" cx="150" cy="70" r="5" stroke="#34c759"/>
-                    <circle id="chartDot3" class="chart-dot" cx="200" cy="55" r="5" stroke="#34c759"/>
-                    <circle id="chartDot4" class="chart-dot" cx="250" cy="45" r="5" stroke="#34c759"/>
-                    <circle id="chartDot5" class="chart-dot" cx="300" cy="35" r="5" stroke="#34c759"/>
-                    <circle id="chartDot6" class="chart-dot" cx="350" cy="25" r="5" stroke="#34c759"/>
+                    <path id="expenseLinePath" class="chart-path" d="M40,150 Q65,145 90,140 T140,135 T190,130 T240,125 T290,120 T340,115 T390,110" stroke="#ff3b30"/>
+
+                    <!-- Data points (separate sets for income and expense) -->
+                    <!-- Income dots -->
+                    <circle id="incomeDot0" class="chart-dot income-dot" cx="50" cy="95" r="5" />
+                    <circle id="incomeDot1" class="chart-dot income-dot" cx="100" cy="80" r="5" />
+                    <circle id="incomeDot2" class="chart-dot income-dot" cx="150" cy="70" r="5" />
+                    <circle id="incomeDot3" class="chart-dot income-dot" cx="200" cy="55" r="5" />
+                    <circle id="incomeDot4" class="chart-dot income-dot" cx="250" cy="45" r="5" />
+                    <circle id="incomeDot5" class="chart-dot income-dot" cx="300" cy="35" r="5" />
+                    <circle id="incomeDot6" class="chart-dot income-dot" cx="350" cy="25" r="5" />
+                    <!-- Expense dots -->
+                    <circle id="expenseDot0" class="chart-dot expense-dot" cx="50" cy="150" r="4" />
+                    <circle id="expenseDot1" class="chart-dot expense-dot" cx="100" cy="145" r="4" />
+                    <circle id="expenseDot2" class="chart-dot expense-dot" cx="150" cy="140" r="4" />
+                    <circle id="expenseDot3" class="chart-dot expense-dot" cx="200" cy="135" r="4" />
+                    <circle id="expenseDot4" class="chart-dot expense-dot" cx="250" cy="120" r="4" />
+                    <circle id="expenseDot5" class="chart-dot expense-dot" cx="300" cy="115" r="4" />
+                    <circle id="expenseDot6" class="chart-dot expense-dot" cx="350" cy="110" r="4" />
+
+                    <!-- X axis label -->
+                    <text id="xAxisLabel" x="200" y="175" text-anchor="middle" fill="#8e8e93" font-size="12">Day</text>
                 </svg>
                 <div class="chart-tooltip" id="chartTooltip"></div>
             </div>
@@ -1326,11 +1354,32 @@
             document.getElementById('expenseLinePath').setAttribute('d', buildLine(expenseY));
             document.getElementById('expenseAreaPath').setAttribute('d', buildArea(expenseY));
 
+            // Update Y-axis tick labels (top = 0 since chart inverted)
+            const tickVals = [0, maxVal / 3, (2 * maxVal) / 3, maxVal];
+            tickVals.forEach((val, i) => {
+                const id = `yTick${3 - i}`; // map 0->yTick3 (top), 3->yTick0 (bottom)
+                const y = minY + (val / maxVal) * heightRange;
+                const el = document.getElementById(id);
+                if (el) {
+                    el.setAttribute('y', isFinite(y) ? y : minY);
+                    el.textContent = `₹${val.toFixed(0)}`;
+                }
+            });
+
+            // Position income and expense dots
             points.forEach((point, index) => {
-                const circle = document.getElementById(`chartDot${index}`);
-                if (circle) {
-                    circle.setAttribute('cx', (index + 1) * xStep);
-                    circle.setAttribute('cy', incomeY[index].y);
+                const incomeCircle = document.getElementById(`incomeDot${index}`);
+                const expenseCircle = document.getElementById(`expenseDot${index}`);
+                const x = (index + 1) * xStep;
+                if (incomeCircle) {
+                    incomeCircle.setAttribute('cx', x);
+                    incomeCircle.setAttribute('cy', incomeY[index].y);
+                    incomeCircle.style.opacity = point.income > 0 ? '1' : '0.35';
+                }
+                if (expenseCircle) {
+                    expenseCircle.setAttribute('cx', x);
+                    expenseCircle.setAttribute('cy', expenseY[index].y);
+                    expenseCircle.style.opacity = point.expense > 0 ? '1' : '0.35';
                 }
             });
         }
