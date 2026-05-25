@@ -253,6 +253,74 @@
             stroke-width: 3;
         }
 
+        .hidden-section {
+            display: none;
+        }
+
+        .budget-section {
+            padding: 0 20px 24px;
+        }
+
+        .budget-card {
+            background: var(--bg-secondary);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .budget-total {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: var(--card-radius);
+            background: var(--bg-secondary);
+        }
+
+        .budget-table th,
+        .budget-table td {
+            padding: 14px 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .budget-table th {
+            text-align: left;
+        }
+
+        .budget-table tbody tr {
+            border-bottom: 1px solid #2c2c2e;
+        }
+
+        .budget-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .budget-name {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .budget-progress {
+            height: 8px;
+            background: #2c2c2e;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .budget-progress-inner {
+            height: 100%;
+            border-radius: 999px;
+            background: var(--accent-orange);
+        }
+
         .income-dot {
             stroke: #34c759;
         }
@@ -303,6 +371,11 @@
             font-size: 15px;
             color: var(--accent-blue);
             text-decoration: none;
+        }
+
+        .summary-footer a.section-link {
+            font-weight: 600;
+            color: var(--accent-blue);
         }
 
         .categories-grid {
@@ -923,6 +996,9 @@
                 </svg>
             </div>
         </div>
+        <div class="summary-footer" style="padding: 0 20px 24px; display:flex; justify-content:flex-end;">
+            <a href="#" id="viewAllTransactionsBtn" class="section-link">View All Transactions</a>
+        </div>
     </div>
 
     <!-- Main Chart -->
@@ -1004,7 +1080,7 @@
     <div class="categories-section">
         <div class="section-header">
             <h2 class="section-title">Spending Categories</h2>
-            <a href="#" class="section-link">See All</a>
+            <a href="#" class="section-link" id="seeAllBudgetLink">See All</a>
         </div>
         <div class="categories-grid">
             <div class="category-card animate-in delay-1">
@@ -1066,6 +1142,32 @@
         </div>
     </div>
 
+
+    <div id="budgetSection" class="budget-section hidden-section">
+        <div class="section-header">
+            <h2 class="section-title">Budget Plan</h2>
+            <a href="#" class="section-link">Monthly</a>
+        </div>
+        <div class="budget-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                <div>
+                    <div class="section-title" style="font-size: 18px;">Total Budget</div>
+                    <div id="totalBudgetValue" class="budget-total">₹15,000</div>
+                </div>
+                <div style="color: var(--text-secondary); font-size: 13px;">Budget category breakdown</div>
+            </div>
+        </div>
+        <table class="budget-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Budget</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody id="budgetRows"></tbody>
+        </table>
+    </div>
 
     <div class="db-section">
         <div class="db-card animate-in">
@@ -1234,23 +1336,29 @@
 
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item active">
+        <a href="#" class="nav-item active" data-view="summary">
             <svg viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
             </svg>
             Summary
         </a>
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-view="trends">
             <svg viewBox="0 0 24 24">
                 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
             </svg>
             Trends
         </a>
-        <a href="#" class="nav-item">
+        <a href="#" id="budgetNav" class="nav-item" data-view="budget">
             <svg viewBox="0 0 24 24">
                 <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
             </svg>
             Budget
+        </a>
+        <a href="#" class="nav-item" data-view="transactions">
+            <svg viewBox="0 0 24 24">
+                <path d="M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1zm2 3v2h10V7H7zm0 4v2h6v-2H7zm0 4v2h10v-2H7z"/>
+            </svg>
+            Transactions
         </a>
         <a href="#" class="nav-item" onclick="openProfileModal(event)">
             <svg viewBox="0 0 24 24">
@@ -1261,6 +1369,20 @@
     </nav>
 
     <script>
+        const API_BASE = (() => {
+            if (window.location.protocol.startsWith('file')) {
+                return 'http://localhost:3000';
+            }
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                return '';
+            }
+            return '';
+        })();
+
+        function getApiUrl(path) {
+            return `${API_BASE}${path}`;
+        }
+
         // Live Clock
         function updateClock() {
             const now = new Date();
@@ -1405,13 +1527,133 @@
         });
 
         // Nav item click handler
-        document.querySelectorAll('.nav-item').forEach(item => {
+        const viewSections = {
+            summary: ['.summary-section', '.chart-section', '.categories-section', '.db-section'],
+            trends: ['.chart-section', '.categories-section'],
+            budget: ['.budget-section'],
+            transactions: ['.db-section']
+        };
+
+        function showView(view) {
+            const allSections = document.querySelectorAll('.summary-section, .chart-section, .categories-section, .db-section, .budget-section');
+            allSections.forEach(section => section.classList.add('hidden-section'));
+
+            const sections = viewSections[view] || viewSections.summary;
+            sections.forEach(selector => {
+                const el = document.querySelector(selector);
+                if (el) el.classList.remove('hidden-section');
+            });
+
+            if (view === 'budget') {
+                const budgetEl = document.getElementById('budgetSection');
+                if (budgetEl) budgetEl.classList.remove('hidden-section');
+            }
+        }
+
+        function setActiveNav(view) {
+            document.querySelectorAll('.bottom-nav .nav-item[data-view]').forEach(i => {
+                if (i.dataset.view === view) {
+                    i.classList.add('active');
+                } else {
+                    i.classList.remove('active');
+                }
+            });
+        }
+
+        async function parseJsonError(response) {
+            const text = await response.text();
+            try {
+                const data = JSON.parse(text);
+                return data.error || JSON.stringify(data) || response.statusText;
+            } catch {
+                if (text.trim().startsWith('<')) {
+                    return `Backend returned HTML (${response.status}). Is the server running at ${API_BASE || 'http://localhost:3000'}?`;
+                }
+                return text || response.statusText || 'Unknown error';
+            }
+        }
+
+        function renderBudgetSection() {
+            const budgetPlan = [
+                { category: 'BLINKIT', amount: 2000, percent: 14 },
+                { category: 'CLOTHES', amount: 1000, percent: 7 },
+                { category: 'RECHARGE', amount: 500, percent: 4 },
+                { category: 'HEALTHCARE', amount: 300, percent: 2 },
+                { category: 'ZOMATO', amount: 500, percent: 4 },
+                { category: 'TRAVEL', amount: 3300, percent: 22 },
+                { category: 'PROTEIN', amount: 1250, percent: 9 },
+                { category: 'FRUITS', amount: 500, percent: 4 },
+                { category: 'MARIJUANA', amount: 900, percent: 6 },
+                { category: 'CIGARETTE', amount: 1800, percent: 12 },
+                { category: 'FLIPKART', amount: 500, percent: 4 },
+                { category: 'YOUTUBE', amount: 150, percent: 1 },
+                { category: 'GOOGLEPHOTOS', amount: 170, percent: 2 },
+                { category: 'DAINIKBHASKAR', amount: 30, percent: 1 },
+                { category: 'OTHER', amount: 2100, percent: 14 }
+            ];
+
+            const budgetRows = document.getElementById('budgetRows');
+            if (!budgetRows) return;
+            budgetRows.innerHTML = budgetPlan.map(item => `
+                <tr>
+                    <td>
+                        <div class="budget-name">${item.category}</div>
+                    </td>
+                    <td>₹${item.amount.toLocaleString('en-IN')}</td>
+                    <td>
+                        ${item.percent}%
+                        <div class="budget-progress">
+                            <div class="budget-progress-inner" style="width: ${item.percent}%;"></div>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        document.querySelectorAll('.bottom-nav .nav-item[data-view]').forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+                const view = item.dataset.view;
+                if (!view) return;
+                setActiveNav(view);
+                renderBudgetSection();
+                showView(view);
             });
         });
+
+        const seeAllLink = document.getElementById('seeAllBudgetLink');
+        if (seeAllLink) {
+            seeAllLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveNav('budget');
+                renderBudgetSection();
+                showView('budget');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        const budgetNavButton = document.getElementById('budgetNav');
+        if (budgetNavButton) {
+            budgetNavButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveNav('budget');
+                renderBudgetSection();
+                showView('budget');
+            });
+        }
+
+        const viewAllTransactionsBtn = document.getElementById('viewAllTransactionsBtn');
+        if (viewAllTransactionsBtn) {
+            viewAllTransactionsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveNav('transactions');
+                showView('transactions');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        renderBudgetSection();
+        showView('summary');
 
         // Card click handlers
         document.querySelectorAll('.summary-card, .category-card, .transaction-card').forEach(card => {
@@ -1431,9 +1673,9 @@
             const tbody = document.getElementById('db-transactions');
 
             try {
-                const response = await fetch('/api/transactions');
+                const response = await fetch(getApiUrl('/api/transactions'));
                 const allTransactions = await response.json();
-                const summaryResponse = await fetch('/api/summary');
+                const summaryResponse = await fetch(getApiUrl('/api/summary'));
                 const summary = await summaryResponse.json();
 
                 statusEl.textContent = 'Synced';
@@ -1487,14 +1729,13 @@
 
                 if (allTransactions.length > 0) {
                     tbody.innerHTML = allTransactions.slice(0, 10).map(tx => {
-                        const escapedNotes = (tx.notes || '').replace(/'/g, "\\'");
                         return `
                         <tr>
                             <td>${tx.date}</td>
                             <td>${tx.category}</td>
                             <td class="amount">${tx.type === 'income' ? '+' : '-'}₹${Math.abs(tx.amount).toFixed(2)}</td>
                             <td class="actions">
-                                <button type="button" class="action-btn" onclick="editTransaction(${tx.id}, '${tx.type}', ${tx.amount}, '${tx.category}', '${tx.date}', '${escapedNotes}')">✏️</button>
+                                <button type="button" class="action-btn" onclick="editTransaction(${tx.id}, ${JSON.stringify(tx.type)}, ${tx.amount}, ${JSON.stringify(tx.category)}, ${JSON.stringify(tx.date)}, ${JSON.stringify(tx.notes || '')})">✏️</button>
                                 <button type="button" class="action-btn delete" onclick="deleteTransaction(${tx.id})">🗑️</button>
                             </td>
                         </tr>
@@ -1546,7 +1787,7 @@
             };
 
             try {
-                const response = await fetch('/api/transactions', {
+                const response = await fetch(getApiUrl('/api/transactions'), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(transaction)
@@ -1557,8 +1798,8 @@
                     loadDatabaseSummary();
                     alert('Transaction added successfully!');
                 } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.error || 'Failed to add transaction'));
+                    const errorMessage = await parseJsonError(response);
+                    alert('Error: ' + errorMessage);
                 }
             } catch (error) {
                 alert('Error adding transaction: ' + error.message);
@@ -1595,7 +1836,7 @@
             resetBtn.textContent = 'Resetting...';
 
             try {
-                const response = await fetch('/api/reset', { method: 'POST' });
+                const response = await fetch(getApiUrl('/api/reset'), { method: 'POST' });
                 if (response.ok) {
                     closeProfileModal();
                     loadDatabaseSummary();
@@ -1650,7 +1891,7 @@
             };
 
             try {
-                const response = await fetch(`/api/transactions/${id}`, {
+                const response = await fetch(getApiUrl(`/api/transactions/${id}`), {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(transaction)
@@ -1661,8 +1902,8 @@
                     loadDatabaseSummary();
                     alert('Transaction updated successfully!');
                 } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.error || 'Failed to update transaction'));
+                    const errorMessage = await parseJsonError(response);
+                    alert('Error: ' + errorMessage);
                 }
             } catch (error) {
                 alert('Error updating transaction: ' + error.message);
@@ -1686,7 +1927,7 @@
             }
 
             try {
-                const response = await fetch(`/api/transactions/${id}`, {
+                const response = await fetch(getApiUrl(`/api/transactions/${id}`), {
                     method: 'DELETE'
                 });
 
@@ -1694,8 +1935,8 @@
                     loadDatabaseSummary();
                     alert('Transaction deleted successfully!');
                 } else {
-                    const error = await response.json();
-                    alert('Error: ' + (error.error || 'Failed to delete transaction'));
+                    const errorMessage = await parseJsonError(response);
+                    alert('Error: ' + errorMessage);
                 }
             } catch (error) {
                 alert('Error deleting transaction: ' + error.message);

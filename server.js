@@ -167,7 +167,24 @@ app.post('/api/reset', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  initializeDatabase();
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+function startServer(port, maxRetries = 5) {
+  const server = app.listen(port, () => {
+    initializeDatabase();
+    console.log(`Server running at http://localhost:${port}`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE' && maxRetries > 0) {
+      console.warn(`Port ${port} is already in use. Trying port ${port + 1}...`);
+      startServer(port + 1, maxRetries - 1);
+    } else if (err.code === 'EADDRINUSE') {
+      console.error(`Port ${port} is already in use. Please free the port or start the app with a different port, e.g. PORT=${port + 1} npm start`);
+      process.exit(1);
+    } else {
+      console.error('Server error:', err);
+      process.exit(1);
+    }
+  });
+}
+
+startServer(PORT);
