@@ -934,8 +934,8 @@
                     <div class="chart-subtitle">Last 7 days</div>
                 </div>
                 <div>
-                    <div id="chartValue" class="chart-value">₹0</div>
-                    <div id="chartValueLabel" class="chart-value-label">Net</div>
+                    <div id="chartValue" class="chart-value">-₹5200.00</div>
+                    <div id="chartValueLabel" class="chart-value-label">Net negative</div>
                 </div>
             </div>
             <div class="chart-container" id="mainChart">
@@ -1455,8 +1455,9 @@
                 document.getElementById('budgetCardValue').textContent = `₹${budgetLeft.toFixed(2)}`;
                 document.getElementById('budgetCardChange').textContent = `${spentPercent}% of monthly`;
                 document.getElementById('savingsCardChange').textContent = `${savingsPercent}% saved`;
-                document.getElementById('chartValue').textContent = `₹${Math.abs(netSavings).toFixed(2)}`;
-                document.getElementById('chartValueLabel').textContent = netSavings >= 0 ? 'Net positive' : 'Net negative';
+                // Override displayed cashflow for demo as requested
+                document.getElementById('chartValue').textContent = '-₹5200.00';
+                document.getElementById('chartValueLabel').textContent = 'Net negative';
 
                 if (netSavings < 0) {
                     document.getElementById('savingsCardChange').classList.remove('positive');
