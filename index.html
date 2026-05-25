@@ -373,6 +373,28 @@
             text-decoration: none;
         }
 
+        .period-select {
+            font-size: 15px;
+            color: var(--accent-blue);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 999px;
+            padding: 7px 12px;
+            cursor: pointer;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .period-select:hover,
+        .period-select:focus {
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .period-select option {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
         .summary-footer a.section-link {
             font-weight: 600;
             color: var(--accent-blue);
@@ -1094,7 +1116,7 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Food & Dining</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div id="categoryAmountFood" class="category-amount">₹0.00 · 0%</div>
                 </div>
             </div>
             <div class="category-card animate-in delay-2">
@@ -1108,7 +1130,7 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Transport</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div id="categoryAmountTransport" class="category-amount">₹0.00 · 0%</div>
                 </div>
             </div>
             <div class="category-card animate-in delay-3">
@@ -1122,7 +1144,7 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Shopping</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div id="categoryAmountShopping" class="category-amount">₹0.00 · 0%</div>
                 </div>
             </div>
             <div class="category-card animate-in delay-4">
@@ -1136,7 +1158,7 @@
                 </div>
                 <div class="category-info">
                     <div class="category-name">Entertainment</div>
-                    <div class="category-amount">₹0.00 · 0%</div>
+                    <div id="categoryAmountEntertainment" class="category-amount">₹0.00 · 0%</div>
                 </div>
             </div>
         </div>
@@ -1146,7 +1168,11 @@
     <div id="budgetSection" class="budget-section hidden-section">
         <div class="section-header">
             <h2 class="section-title">Budget Plan</h2>
-            <a href="#" class="section-link">Monthly</a>
+            <select id="periodSelect" class="period-select">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly</option>
+            </select>
         </div>
         <div class="budget-card">
             <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
@@ -1550,6 +1576,32 @@
             }
         }
 
+        let currentPeriod = 'monthly';
+        const periodConfig = {
+            daily: { label: 'Daily', days: 1, budgetFactor: 1 / 30, subtitle: 'Today' },
+            weekly: { label: 'Weekly', days: 7, budgetFactor: 1 / 4, subtitle: 'This week' },
+            monthly: { label: 'Monthly', days: 30, budgetFactor: 1, subtitle: 'This month' }
+        };
+
+        const categoryOverview = [
+            { id: 'categoryAmountFood', monthlyAmount: 2800, name: 'Food & Dining' },
+            { id: 'categoryAmountTransport', monthlyAmount: 1400, name: 'Transport' },
+            { id: 'categoryAmountShopping', monthlyAmount: 2200, name: 'Shopping' },
+            { id: 'categoryAmountEntertainment', monthlyAmount: 1000, name: 'Entertainment' }
+        ];
+
+        function updateCategoryData(period) {
+            const config = periodConfig[period] || periodConfig.monthly;
+            const totalMonthly = categoryOverview.reduce((sum, cat) => sum + cat.monthlyAmount, 0);
+            categoryOverview.forEach(cat => {
+                const el = document.getElementById(cat.id);
+                if (!el) return;
+                const amount = Math.round(cat.monthlyAmount * config.budgetFactor);
+                const percent = totalMonthly > 0 ? Math.round((cat.monthlyAmount / totalMonthly) * 100) : 0;
+                el.textContent = `₹${amount.toLocaleString('en-IN')} · ${percent}%`;
+            });
+        }
+
         function setActiveNav(view) {
             document.querySelectorAll('.bottom-nav .nav-item[data-view]').forEach(i => {
                 if (i.dataset.view === view) {
@@ -1567,39 +1619,101 @@
                 return data.error || JSON.stringify(data) || response.statusText;
             } catch {
                 if (text.trim().startsWith('<')) {
+                    const selfHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol.startsWith('file');
+                    if (!selfHost) {
+                        return `Backend returned HTML (${response.status}). This site is deployed as static content and cannot reach a local backend. Run the app locally with a Node server on http://localhost:3000 to use CRUD features.`;
+                    }
                     return `Backend returned HTML (${response.status}). Is the server running at ${API_BASE || 'http://localhost:3000'}?`;
                 }
                 return text || response.statusText || 'Unknown error';
             }
         }
 
+        function getPeriodDates(period) {
+            const count = periodConfig[period]?.days || 7;
+            const dates = [];
+            const today = new Date();
+            for (let i = count - 1; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                dates.push(date.toISOString().split('T')[0]);
+            }
+            return dates;
+        }
+
+        function filterTransactionsByPeriod(transactions, period) {
+            const allowedDates = new Set(getPeriodDates(period));
+            return transactions.filter(tx => allowedDates.has(tx.date));
+        }
+
+        function updatePeriodData(transactions, summary) {
+            const budgetValueEl = document.getElementById('totalBudgetValue');
+            const budgetChangeEl = document.getElementById('budgetCardChange');
+            const chartSubtitle = document.querySelector('.chart-subtitle');
+            const chartValue = document.getElementById('chartValue');
+            const chartValueLabel = document.getElementById('chartValueLabel');
+            const config = periodConfig[currentPeriod] || periodConfig.monthly;
+
+            const periodTransactions = filterTransactionsByPeriod(transactions, currentPeriod);
+            const periodIncome = periodTransactions.filter(tx => tx.type === 'income').reduce((sum, tx) => sum + tx.amount, 0);
+            const periodExpense = periodTransactions.filter(tx => tx.type === 'expense').reduce((sum, tx) => sum + tx.amount, 0);
+            const periodBudget = Math.round(15000 * config.budgetFactor);
+            const spentPercent = periodBudget > 0 ? Math.min((periodExpense / periodBudget) * 100, 100).toFixed(0) : '0';
+            const net = periodIncome - periodExpense;
+
+            if (budgetValueEl) {
+                budgetValueEl.textContent = `₹${periodBudget.toLocaleString('en-IN')}`;
+            }
+            if (budgetChangeEl) {
+                budgetChangeEl.textContent = `${spentPercent}% of ${config.label.toLowerCase()}`;
+            }
+            if (chartSubtitle) {
+                chartSubtitle.textContent = config.subtitle;
+            }
+            if (chartValue) {
+                chartValue.textContent = `${net < 0 ? '-' : ''}₹${Math.abs(net).toFixed(2)}`;
+            }
+            if (chartValueLabel) {
+                chartValueLabel.textContent = net < 0 ? 'Net negative' : 'Net positive';
+            }
+            updateCategoryData(currentPeriod);
+        }
+
         function renderBudgetSection() {
+            const config = periodConfig[currentPeriod] || periodConfig.monthly;
             const budgetPlan = [
-                { category: 'BLINKIT', amount: 2000, percent: 14 },
-                { category: 'CLOTHES', amount: 1000, percent: 7 },
-                { category: 'RECHARGE', amount: 500, percent: 4 },
-                { category: 'HEALTHCARE', amount: 300, percent: 2 },
-                { category: 'ZOMATO', amount: 500, percent: 4 },
-                { category: 'TRAVEL', amount: 3300, percent: 22 },
-                { category: 'PROTEIN', amount: 1250, percent: 9 },
-                { category: 'FRUITS', amount: 500, percent: 4 },
-                { category: 'MARIJUANA', amount: 900, percent: 6 },
-                { category: 'CIGARETTE', amount: 1800, percent: 12 },
-                { category: 'FLIPKART', amount: 500, percent: 4 },
-                { category: 'YOUTUBE', amount: 150, percent: 1 },
-                { category: 'GOOGLEPHOTOS', amount: 170, percent: 2 },
-                { category: 'DAINIKBHASKAR', amount: 30, percent: 1 },
-                { category: 'OTHER', amount: 2100, percent: 14 }
+                { category: 'BLINKIT', monthlyAmount: 2000, percent: 14 },
+                { category: 'CLOTHES', monthlyAmount: 1000, percent: 7 },
+                { category: 'RECHARGE', monthlyAmount: 500, percent: 4 },
+                { category: 'HEALTHCARE', monthlyAmount: 300, percent: 2 },
+                { category: 'ZOMATO', monthlyAmount: 500, percent: 4 },
+                { category: 'TRAVEL', monthlyAmount: 3300, percent: 22 },
+                { category: 'PROTEIN', monthlyAmount: 1250, percent: 9 },
+                { category: 'FRUITS', monthlyAmount: 500, percent: 4 },
+                { category: 'MARIJUANA', monthlyAmount: 900, percent: 6 },
+                { category: 'CIGARETTE', monthlyAmount: 1800, percent: 12 },
+                { category: 'FLIPKART', monthlyAmount: 500, percent: 4 },
+                { category: 'YOUTUBE', monthlyAmount: 150, percent: 1 },
+                { category: 'GOOGLEPHOTOS', monthlyAmount: 170, percent: 2 },
+                { category: 'DAINIKBHASKAR', monthlyAmount: 30, percent: 1 },
+                { category: 'OTHER', monthlyAmount: 2100, percent: 14 }
             ];
 
+            const periodTotal = Math.round(budgetPlan.reduce((sum, item) => sum + item.monthlyAmount, 0) * config.budgetFactor);
             const budgetRows = document.getElementById('budgetRows');
+            const totalBudgetValue = document.getElementById('totalBudgetValue');
+            if (totalBudgetValue) {
+                totalBudgetValue.textContent = `₹${periodTotal.toLocaleString('en-IN')}`;
+            }
             if (!budgetRows) return;
-            budgetRows.innerHTML = budgetPlan.map(item => `
+            budgetRows.innerHTML = budgetPlan.map(item => {
+                const amount = Math.round(item.monthlyAmount * config.budgetFactor);
+                return `
                 <tr>
                     <td>
                         <div class="budget-name">${item.category}</div>
                     </td>
-                    <td>₹${item.amount.toLocaleString('en-IN')}</td>
+                    <td>₹${amount.toLocaleString('en-IN')}</td>
                     <td>
                         ${item.percent}%
                         <div class="budget-progress">
@@ -1607,7 +1721,8 @@
                         </div>
                     </td>
                 </tr>
-            `).join('');
+            `;
+            }).join('');
         }
 
         document.querySelectorAll('.bottom-nav .nav-item[data-view]').forEach(item => {
@@ -1620,6 +1735,21 @@
                 showView(view);
             });
         });
+
+        const periodSelect = document.getElementById('periodSelect');
+        if (periodSelect) {
+            periodSelect.addEventListener('change', (e) => {
+                currentPeriod = e.target.value;
+                updateCategoryData(currentPeriod);
+                renderBudgetSection();
+                const config = periodConfig[currentPeriod] || periodConfig.monthly;
+                const chartSubtitle = document.querySelector('.chart-subtitle');
+                if (chartSubtitle) {
+                    chartSubtitle.textContent = config.subtitle;
+                }
+                loadDatabaseSummary();
+            });
+        }
 
         const seeAllLink = document.getElementById('seeAllBudgetLink');
         if (seeAllLink) {
@@ -1684,6 +1814,7 @@
                 countEl.textContent = summary.transactionCount;
 
                 buildChartPoints(allTransactions);
+                updatePeriodData(allTransactions, summary);
 
                 // Visual override: force displayed net cashflow to -₹5200 by
                 // distributing additional expense across the 7-day chart.
@@ -1704,16 +1835,17 @@
                 })();
 
                 const netSavings = summary.totalIncome - summary.totalExpense;
-                const monthlyBudget = 15000;
-                const budgetLeft = Math.max(monthlyBudget - summary.totalExpense, 0);
-                const spentPercent = summary.totalExpense > 0 ? Math.min((summary.totalExpense / monthlyBudget) * 100, 100).toFixed(0) : '0';
+                const config = periodConfig[currentPeriod] || periodConfig.monthly;
+                const periodBudget = Math.round(15000 * config.budgetFactor);
+                const budgetLeft = Math.max(periodBudget - summary.totalExpense, 0);
+                const spentPercent = summary.totalExpense > 0 ? Math.min((summary.totalExpense / periodBudget) * 100, 100).toFixed(0) : '0';
                 const savingsPercent = summary.totalIncome > 0 ? Math.min((netSavings / summary.totalIncome) * 100, 100).toFixed(0) : '0';
 
                 document.getElementById('incomeCardValue').textContent = `₹${summary.totalIncome.toFixed(2)}`;
                 document.getElementById('expenseCardValue').textContent = `₹${summary.totalExpense.toFixed(2)}`;
                 document.getElementById('savingsCardValue').textContent = `₹${netSavings.toFixed(2)}`;
                 document.getElementById('budgetCardValue').textContent = `₹${budgetLeft.toFixed(2)}`;
-                document.getElementById('budgetCardChange').textContent = `${spentPercent}% of monthly`;
+                document.getElementById('budgetCardChange').textContent = `${spentPercent}% of ${config.label.toLowerCase()}`;
                 document.getElementById('savingsCardChange').textContent = `${savingsPercent}% saved`;
                 // Override displayed cashflow for demo as requested
                 document.getElementById('chartValue').textContent = '-₹5200.00';
